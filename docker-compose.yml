@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  kf1classic:
+    image: kf1classic
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        - STEAM_USERNAME=$STEAM_USERNAME
+        - STEAM_PASSWORD=$STEAM_PASSWORD
+    ports: 
+      - "7707:7707"
+      - "7708:7708"
+      - "7717:7717"
+      - "28852:28852"
+      - "8075:8075"
+      - "20560:20560"
