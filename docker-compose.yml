@@ -3,11 +3,20 @@ services:
   kf1classic:
     image: kf1classic
     build:
-      context: .
+      context: ./kf1classic
       dockerfile: Dockerfile
       args: 
         - STEAM_USERNAME=$STEAM_USERNAME
         - STEAM_PASSWORD=$STEAM_PASSWORD
+        - GAME_ADMIN_NAME=$GAME_ADMIN_NAME
+        - GAME_ADMIN_PASSWORD=$GAME_ADMIN_PASSWORD
+        - SERVERNAME=$SERVERNAME
+        - GAME_PASSWORD=$GAME_PASSWORD
+        - GAME_DIFFICULTY=$GAME_DIFFICULTY
+        - GAME_LENGTH=$GAME_LENGTH
+        - ENABLE_VOTING=$ENABLE_VOTING
+        - REPEAT_LIMIT=$REPEAT_LIMIT
+        - DEFAULT_MAPLIST=$DEFAULT_MAPLIST
     ports: 
       - "7707:7707"
       - "7708:7708"
