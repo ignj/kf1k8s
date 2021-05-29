@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kf1classic-deployment
+  labels:
+    app: kf1classic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kf1classic
+  template:
+    metadata:
+      labels:
+        app: kf1classic
+    spec:
+      containers:
+        - name: kf1classic
+          image: kf1classic:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+            - containerPort: 7707
+            - containerPort: 7708
+            - containerPort: 7717
+            - containerPort: 28852
+            - containerPort: 8075
+            - containerPort: 20560
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kf1classic-entrypoint-udp
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: kf1classic
+  ports:
+    - name: game-port
+      protocol: UDP
+      port: 7707
+      targetPort: 7707
+    - name: query-port
+      protocol: UDP
+      port: 7708
+      targetPort: 7708
+    - name: game-spy-query-port
+      protocol: UDP
+      port: 7717
+      targetPort: 7717
+    - name: steam-port
+      protocol: UDP
+      port: 20560
+      targetPort: 20560
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kf1classic-entrypoint-tcp
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: kf1classic
+  ports:
+    - name: web-port
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: master-server-browser
+      protocol: TCP
+      port: 28852
+      targetPort: 28852
+    - name: listen-port
+      protocol: TCP
+      port: 8075
+      targetPort: 8075
