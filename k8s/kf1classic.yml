@@ -19,7 +19,6 @@ spec:
           image: kf1classic:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
             - containerPort: 7707
             - containerPort: 7708
             - containerPort: 7717
@@ -64,10 +63,6 @@ spec:
   selector:
     app: kf1classic
   ports:
-    - name: web-port
-      protocol: TCP
-      port: 80
-      targetPort: 80
     - name: master-server-browser
       protocol: TCP
       port: 28852
