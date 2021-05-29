@@ -19,11 +19,10 @@ docker build \
     --build-arg SERVERNAME="$server_name" \
     --build-arg GAME_PASSWORD="$game_password" \
     -t kf1classic:latest \
-    ./kf1classic/
-    /
+    .
 echo "2. End build docker image"
 
 # Update the cluster
 echo "3. Update pod"
-kubectl replace --force -f ./k8s/kf1classic.yml
+kubectl replace --force -f ../k8s/kf1classic.yml
 echo "3. End update pod"
