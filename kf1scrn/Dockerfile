@@ -36,6 +36,7 @@ RUN sed -i "s/ServerName=Killing Floor Server/ServerName=$SERVERNAME/g" KillingF
     && sed -i "s/Port=7707/Port=7727/g" KillingFloor.ini \
     && sed -i "s/OldQueryPortNumber=7717/OldQueryPortNumber=7737/g" KillingFloor.ini \
     && sed -i "s/ListenPort=8075/ListenPort=8095/g" KillingFloor.ini
+    # SED LVL6 as default
 
 FROM default_game_settings as publish
 WORKDIR /home/steam/killingfloor/System

@@ -1,15 +1,6 @@
 # Script to build the docker image and deploy it to the cluster
-# Image variables
-echo "1. Provisioning build variables"
-steam_username=<placeholder>
-steam_password=<placeholder>
-scrn_gdrive_id=<placeholder>
-scrn_gdrive_file_name=<placeholder>
-game_admin_name=<placeholder>
-game_admin_password=<placeholder>
-server_name=<placeholder>
-game_password=<placeholder>
-echo "1. End provisioning build variables"
+# Pull env variables
+source env.sh
 
 # Build the image
 echo "2. Build docker image"
@@ -28,5 +19,5 @@ echo "2. End build docker image"
 
 # Update the cluster
 echo "3. Update pod"
-# kubectl replace --force -f ./k8s/kf1classic.yml
+# kubectl replace --force -f ../k8s/kf1scrn.yml
 echo "3. End update pod"

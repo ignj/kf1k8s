@@ -1,13 +1,6 @@
 # Script to build the docker image and deploy it to the cluster
-# Image variables
-echo "1. Provisioning build variables"
-steam_username=<placeholder>
-steam_password=<placeholder>
-game_admin_name=<placeholder>
-game_admin_password=<placeholder>
-server_name=<placeholder>
-game_password=<placeholder>
-echo "1. End provisioning build variables"
+# Pull env variables
+source env.sh
 
 # Build the image
 echo "2. Build docker image"
