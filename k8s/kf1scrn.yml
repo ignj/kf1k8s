@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kf1scrn-deployment
+  labels:
+    app: kf1scrn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kf1scrn
+  template:
+    metadata:
+      labels:
+        app: kf1scrn
+    spec:
+      containers:
+        - name: kf1scrn
+          image: kf1scrn:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7727
+            - containerPort: 7737
+            - containerPort: 8077
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kf1scrn-entrypoint-udp
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: kf1scrn
+  ports:
+    - name: game-port
+      protocol: UDP
+      port: 7727
+      targetPort: 7727
+    - name: query-port
+      protocol: UDP
+      port: 7737
+      targetPort: 7737
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kf1scrn-entrypoint-tcp
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: kf1scrn
+  ports:
+    - name: listen-port
+      protocol: TCP
+      port: 8095
+      targetPort: 8095
