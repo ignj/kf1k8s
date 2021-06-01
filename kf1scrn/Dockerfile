@@ -29,14 +29,20 @@ WORKDIR /home/steam/killingfloor/System
 
 ARG SERVERNAME
 ARG GAME_PASSWORD
+ARG GAME_PORT
+ARG QUERY_PORT
+ARG LISTEN_PORT
 
 RUN sed -i "s/ServerName=Killing Floor Server/ServerName=$SERVERNAME/g" KillingFloor.ini \
     && sed -i "s/GamePassword=/GamePassword=$GAME_PASSWORD/g" KillingFloor.ini \
     && sed -i "s/bRestartServerOnPortSwap=True/bRestartServerOnPortSwap=False/g" KillingFloor.ini \
-    && sed -i "s/Port=7707/Port=7727/g" KillingFloor.ini \
-    && sed -i "s/OldQueryPortNumber=7717/OldQueryPortNumber=7737/g" KillingFloor.ini \
-    && sed -i "s/ListenPort=8075/ListenPort=8095/g" KillingFloor.ini
-    # SED LVL6 as default
+    && sed -i "s/Port=7707/Port=$GAME_PORT/g" KillingFloor.ini \
+    && sed -i "s/OldQueryPortNumber=7717/OldQueryPortNumber=$QUERY_PORT/g" KillingFloor.ini \
+    && sed -i "s/ListenPort=8075/ListenPort=$LISTEN_PORT/g" KillingFloor.ini
+
+# Update default SCRN Perks configuration
+COPY ["./config_scripts/configure_server_perks.sh", "./configure_server_perks.sh"]
+RUN ./configure_server_perks.sh
 
 FROM default_game_settings as publish
 WORKDIR /home/steam/killingfloor/System
