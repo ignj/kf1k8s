@@ -32,7 +32,21 @@ RUN sed -i "s/GamePassword=/GamePassword=$GAME_PASSWORD/g" KillingFloor.ini
 # RUN sed -i "s/bMapVote=/bMapVote=$ENABLE_VOTING/g" KillingFloor.ini
 # RUN sed -i "s/bUseMapList=/bUseMapList=$DEFAULT_MAPLIST/g" KillingFloor.ini
 
-FROM default_game_settings as publish
+FROM default_game_settings as custom_mutators_hook
+WORKDIR /home/steam/killingfloor/System
+
+# Remember to activate these through the WebAdmin page
+# Mut Kill Message
+ADD ./mutators/mut_kill_messages .
+
+# All Traders Open
+ADD ./mutators/all_traders_open .
+
+# Map Vote Handler V2
+ADD ./mutators/map_vote_v2 .
+RUN sed -i "s/VotingHandlerType=xVoting.xVotingHandler/VotingHandlerType=KFMapVoteV2.KFVotingHandler/g" KillingFloor.ini
+
+FROM custom_mutators_hook as publish
 WORKDIR /home/steam/killingfloor/System
 
 ARG GAME_ADMIN_NAME
