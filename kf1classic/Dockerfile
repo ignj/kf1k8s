@@ -24,8 +24,9 @@ ARG GAME_PASSWORD
 # ARG REPEAT_LIMIT
 # ARG DEFAULT_MAPLIST
 
-RUN sed -i "s/ServerName=Killing Floor Server/ServerName=$SERVERNAME/g" KillingFloor.ini
-RUN sed -i "s/GamePassword=/GamePassword=$GAME_PASSWORD/g" KillingFloor.ini
+RUN sed -i "s/ServerName=Killing Floor Server/ServerName=$SERVERNAME/g" KillingFloor.ini \
+    && sed -i "s/GamePassword=/GamePassword=$GAME_PASSWORD/g" KillingFloor.ini \
+    && sed -i "/[UWeb.WebServer]/,/bEnabled/s/bEnabled.*/bEnabled=True/" KillingFloor.ini
 # RUN sed -i "s/RepeatLimit=/RepeatLimit=$REPEAT_LIMIT/g" KillingFloor.ini
 # RUN sed -i "s/GameDifficulty/GameDifficulty=$GAME_DIFFICULTY/g" KillingFloor.ini
 # RUN sed -i "s/KFGameLength/KFGameLength=$GAME_LENGTH/g" KillingFloor.ini
