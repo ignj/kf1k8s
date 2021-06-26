@@ -42,7 +42,7 @@ RUN sed -i "s/ServerName=Killing Floor Server/ServerName=$SERVERNAME/g" KillingF
 
 # Update default SCRN Perks configuration
 COPY ["./config_scripts/configure_server_perks.sh", "./configure_server_perks.sh"]
-RUN ./configure_server_perks.sh
+RUN bash ./configure_server_perks.sh
 
 FROM default_game_settings as publish
 WORKDIR /home/steam/killingfloor/System
